@@ -11,7 +11,7 @@ export default function CardsProyects() {
   const getProyectos = async ()=>{
     try{
       const response = await
-      fetch('http://192.168.1.79:8080/cds/proyectos/')
+      fetch('http://192.168.68.118:8080/cds/proyectos/')
       const json = await response.json();
       setDatos(json)
     }catch(error){
@@ -22,8 +22,13 @@ export default function CardsProyects() {
   }
 
   const {data}=datos
-  const proyectos = data
-  console.log(proyectos)
+
+  let i=0
+  let proyectos = []
+  for(i in data){
+    proyectos.push(data[i])
+  }
+
 
   useEffect(()=>{
     getProyectos()
@@ -36,14 +41,11 @@ export default function CardsProyects() {
         style={styles.background}
       />
       <ScrollView>
-        {/* {data.map((proyecto,i)=>{
+        {proyectos.map((proyecto,i)=>{
           return(
             <CardProject key={i} titulo={proyecto.name} description={proyecto.description}/>
           )
-        })} */}
-        <CardProject titulo="Gestion de medicamentos" description="Sistema para gestionar los medicamentos..."/>
-        <CardProject titulo="Gestión de horarios" description="Sistema para llevar el control de horarios de estudiantes"/>
-        <CardProject titulo="Sistema para cafetería" description="Sistema para llevar el control de venta de alimentos"/>
+        })}
       </ScrollView>
     </View>
   );
